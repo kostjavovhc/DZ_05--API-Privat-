@@ -7,7 +7,7 @@ from time import time
 
 
 URL = "https://api.privatbank.ua/p24api/exchange_rates?json&date="
-CURRENCY = ('EUR', 'USD')
+VALUES = ('EUR', 'USD')
 
 
 async def request(url: str):
@@ -48,7 +48,7 @@ async def get_exchange(currency_code='USD', days='1'):
         return exchange_result
 
 
-async def get_currency_rates(currency_tuple=CURRENCY, days='1'):
+async def get_currency_rates(currency_tuple=VALUES, days='1'):
     results = []
     for currency in currency_tuple:
         try:
@@ -66,9 +66,9 @@ async def main():
         return "Please, enter amount of days"
     if int(days) > 10:
         return 'You cannot get currency rates for more then 10 days'
-    currency_tuple = CURRENCY
+    currency_tuple = VALUES
     if len(user_input) > 2:
-        currency_tuple = tuple(list(CURRENCY) + [currency for currency in user_input[2:] if currency not in CURRENCY])
+        currency_tuple = tuple(list(VALUES) + [currency for currency in user_input[2:] if currency not in VALUES])
 
     try:
         result = await get_currency_rates(currency_tuple, days)
